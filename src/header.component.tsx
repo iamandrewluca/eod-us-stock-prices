@@ -81,6 +81,6 @@ function buildURLQuandlEOD(company = 'AAPL', start_date, end_date) {
 function eodDataMap(resData) {
   return resData.dataset.data.map(dataEntry => ({
     date: dataEntry[0],
-    close: dataEntry[4],
+    value: dataEntry[4],
   }))
 }

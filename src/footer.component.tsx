@@ -3,6 +3,6 @@ import {Container} from 'reactstrap'
 
 export const Footer = () => (
   <section className="bg-light py-3">
-    <Container>Footer</Container>
+    <Container>EOD US Stock Footer</Container>
   </section>
 );
