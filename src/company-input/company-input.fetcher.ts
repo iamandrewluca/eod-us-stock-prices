@@ -1,29 +1,18 @@
 import React from 'react'
 import debounce from 'lodash.debounce'
 
-const baseEndpoint = 'https://www.quandl.com/api/v3/datasets'
-
-function buildURL(query) {
-  const url = new URL(baseEndpoint)
-  url.search = new URLSearchParams({
-    database_code: 'EOD',
-    filter: 'sample',
-    page: 1,
-    per_page: 5,
-    query
-  }).toString()
-  return url.toString()
+interface CompanyInputFetcherProps {
+  query: string
+  children: (state: CompanyInputFetcherState) => React.ReactNode
 }
 
-function quandlMap(data) {
-  return data.datasets.map(set => ({
-    id: set.id,
-    code: set.dataset_code,
-    name: set.name
-  }))
+interface CompanyInputFetcherState {
+  data?: []
+  loading: boolean
+  error: boolean
 }
 
-class CompanyInputFetcher extends React.Component {
+export class CompanyInputFetcher extends React.Component<CompanyInputFetcherProps, CompanyInputFetcherState> {
   state = {
     data: undefined,
     loading: false,
@@ -37,7 +26,7 @@ class CompanyInputFetcher extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.params.q !== this.props.params.q) {
+    if (prevProps.query !== this.props.query) {
       this.fetchData()
     }
   }
@@ -47,9 +36,9 @@ class CompanyInputFetcher extends React.Component {
   }
 
   makeNetworkRequest = debounce(() => {
-    const { q } = this.props.params
+    const { query } = this.props
 
-    fetch(buildURL(q),{ signal: this.abortController.signal })
+    fetch(buildURL(query),{ signal: this.abortController.signal })
       .then(res => res.json())
       .then(quandlMap)
       .then(data => {
@@ -77,4 +66,22 @@ class CompanyInputFetcher extends React.Component {
   }
 }
 
-export default CompanyInputFetcher
+function buildURL(query: string): string {
+  const url = new URL('https://www.quandl.com/api/v3/datasets')
+  url.search = new URLSearchParams({
+    database_code: 'EOD',
+    filter: 'sample',
+    page: "1",
+    per_page: "5",
+    query
+  }).toString()
+  return url.toString()
+}
+
+function quandlMap(data) {
+  return data.datasets.map(set => ({
+    id: set.id,
+    code: set.dataset_code,
+    name: set.name
+  }))
+}

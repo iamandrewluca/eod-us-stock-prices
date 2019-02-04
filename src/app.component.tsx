@@ -4,13 +4,21 @@ import {Body} from './body.component'
 import {Footer} from './footer.component'
 
 export class App extends React.Component {
+  state = {
+    companyData: undefined
+  }
+
   render() {
     return (
       <React.Fragment>
-        <Header/>
-        <Body/>
+        <Header onChange={this.onChange} />
+        <Body companyData={this.state.companyData} />
         <Footer/>
       </React.Fragment>
     )
+  }
+
+  onChange = (companyData) => {
+    this.setState({ companyData })
   }
 }
