@@ -5,7 +5,7 @@ import {Footer} from './footer.component'
 
 export class App extends React.Component {
   state = {
-    companyData: undefined
+    companyData: []
   }
 
   render() {

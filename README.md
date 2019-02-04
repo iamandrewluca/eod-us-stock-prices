@@ -1,3 +1,12 @@
+## End of day US stock prices
+
+1. Copy `.env.default` to `.env.local`
+2. Add your Quandl API KEY as `REACT_APP_QUANDL_API_KEY` in `.env.local`
+3. Run `npm install` or `yarn`
+4. Run `npm run start` or `yarn start`
+
+![App screen](./screen.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
