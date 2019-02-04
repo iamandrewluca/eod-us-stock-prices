@@ -1,0 +1,22 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    border-radius: $border-radius;
+    background-color: $light;
+    @include box-shadow();
+}
+
+.item {
+    padding: $input-padding-y $input-padding-x;
+    white-space: nowrap;
+}
+
+.item + .item {
+    border-top: 1px solid $primary;
+}
